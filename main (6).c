@@ -1,0 +1,79 @@
+#include <stdio.h>
+
+int main() {
+    // --- CADASTRO DAS CARTAS ---
+    char cidade1[50] = "Brasilia", cidade2[50] = "Salvador";
+    unsigned long int populacao1 = 2817000, populacao2 = 2418000;
+    float area1 = 5760.78, area2 = 6981.82;
+    float pib1 = 286.9, pib2 = 63.9;
+    int pontos1 = 45, pontos2 = 30;
+    float densidade1 = (float)populacao1 / area1;
+    float densidade2 = (float)populacao2 / area2;
+
+    int opcao1, opcao2;
+    float valor1_carta1, valor1_carta2, valor2_carta1, valor2_carta2;
+    char* nomeAtributo1;
+    char* nomeAtributo2;
+
+    printf("--- SUPER TRUNFO: NIVEL MESTRE ---\n\n");
+
+    // --- PRIMEIRO MENU ---
+    printf("Escolha o PRIMEIRO atributo:\n");
+    printf("1. Populacao | 2. Area | 3. PIB | 4. Pontos Turisticos | 5. Densidade\n");
+    printf("Opcao: ");
+    scanf("%d", &opcao1);
+
+    // --- SEGUNDO MENU (Dinâmico: impede escolher o mesmo) ---
+    printf("\nEscolha o SEGUNDO atributo (diferente do primeiro):\n");
+    printf("1. Populacao | 2. Area | 3. PIB | 4. Pontos Turisticos | 5. Densidade\n");
+    printf("Opcao: ");
+    scanf("%d", &opcao2);
+
+    if (opcao1 == opcao2) {
+        printf("\nERRO: Voce escolheu o mesmo atributo duas vezes! Reinicie o jogo.\n");
+        return 0;
+    }
+
+    // --- LOGICA DE ATRIBUICAO (Usando Switch para o Atributo 1) ---
+    switch (opcao1) {
+        case 1: nomeAtributo1 = "Populacao"; valor1_carta1 = (float)populacao1; valor1_carta2 = (float)populacao2; break;
+        case 2: nomeAtributo1 = "Area"; valor1_carta1 = area1; valor1_carta2 = area2; break;
+        case 3: nomeAtributo1 = "PIB"; valor1_carta1 = pib1; valor1_carta2 = pib2; break;
+        case 4: nomeAtributo1 = "Pontos Turisticos"; valor1_carta1 = (float)pontos1; valor1_carta2 = (float)pontos2; break;
+        case 5: nomeAtributo1 = "Densidade"; valor1_carta1 = densidade1; valor1_carta2 = densidade2; break;
+        default: printf("Opcao 1 invalida!\n"); return 0;
+    }
+
+    // --- LOGICA DE ATRIBUICAO (Usando Switch para o Atributo 2) ---
+    switch (opcao2) {
+        case 1: nomeAtributo2 = "Populacao"; valor2_carta1 = (float)populacao1; valor2_carta2 = (float)populacao2; break;
+        case 2: nomeAtributo2 = "Area"; valor2_carta1 = area1; valor2_carta2 = area2; break;
+        case 3: nomeAtributo2 = "PIB"; valor2_carta1 = pib1; valor2_carta2 = pib2; break;
+        case 4: nomeAtributo2 = "Pontos Turisticos"; valor2_carta1 = (float)pontos1; valor2_carta2 = (float)pontos2; break;
+        case 5: nomeAtributo2 = "Densidade"; valor2_carta1 = densidade1; valor2_carta2 = densidade2; break;
+        default: printf("Opcao 2 invalida!\n"); return 0;
+    }
+
+    // --- CÁLCULO DA SOMA ---
+    // Regra da densidade: No Super Trunfo, valores menores de densidade são "melhores". 
+    // Para a soma fazer sentido, usamos o inverso ou apenas comparamos os pontos ganhos.
+    float soma1 = valor1_carta1 + valor2_carta1;
+    float soma2 = valor1_carta2 + valor2_carta2;
+
+    // --- EXIBIÇÃO DOS RESULTADOS ---
+    printf("\n--- RESULTADO FINAL ---\n");
+    printf("Cartas: %s vs %s\n", cidade1, cidade2);
+    printf("Atributo 1 (%s): %.2f vs %.2f\n", nomeAtributo1, valor1_carta1, valor1_carta2);
+    printf("Atributo 2 (%s): %.2f vs %.2f\n", nomeAtributo2, valor2_carta1, valor2_carta2);
+    printf("SOMA TOTAL: %.2f vs %.2f\n", soma1, soma2);
+
+    // --- COMPARAÇÃO FINAL (Usando If-Else e Operador Ternário) ---
+    if (soma1 == soma2) {
+        printf("\nResultado: Empate!\n");
+    } else {
+        // Usando o Operador Ternário para decidir o vencedor (Requisito 4 do Mestre)
+        (soma1 > soma2) ? printf("\nResultado: Carta 1 (%s) VENCEU!\n", cidade1) : printf("\nResultado: Carta 2 (%s) VENCEU!\n", cidade2);
+    }
+
+    return 0;
+}
